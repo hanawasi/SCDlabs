@@ -21,21 +21,21 @@ public class Lab08task1 {
         });
 
         Thread thread2 = new Thread(() -> {
-            synchronized (lock2) {
-                System.out.println("Thread 2: Holding Lock 2...");
+            synchronized (lock1) { // Consistent order: Lock 1, then Lock 2
+                System.out.println("Thread 2: Holding Lock 1...");
                 try { Thread.sleep(100); } catch (InterruptedException e) {}
-                synchronized (lock3) {
-                    System.out.println("Thread 2: Acquired Lock 3!");
+                synchronized (lock2) {
+                    System.out.println("Thread 2: Acquired Lock 2!");
                 }
             }
         });
 
         Thread thread3 = new Thread(() -> {
-            synchronized (lock3) {
-                System.out.println("Thread 3: Holding Lock 3...");
+            synchronized (lock1) { // Consistent order: Lock 1, then Lock 2
+                System.out.println("Thread 3: Holding Lock 1...");
                 try { Thread.sleep(100); } catch (InterruptedException e) {}
-                synchronized (lock1) {
-                    System.out.println("Thread 3: Acquired Lock 1!");
+                synchronized (lock3) {
+                    System.out.println("Thread 3: Acquired Lock 3!");
                 }
             }
         });
